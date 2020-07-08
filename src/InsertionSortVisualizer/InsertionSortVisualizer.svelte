@@ -1,5 +1,6 @@
 <script>
   export let unsortedArray;
+  export let sortedSubArray;
 </script>
 
 <style>
@@ -21,7 +22,9 @@
 
   <div class="bars">
     {#each unsortedArray as item, i}
-      <div class="bar" style="width: 4px; height: {item * 3}px" />
+      <div
+        class="bar"
+        style="width: 4px; height: {item * 3}px; background-color: {sortedSubArray.includes(item) ? 'green' : 'red'}" />
     {/each}
   </div>
 
