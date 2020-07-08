@@ -7,6 +7,7 @@
   let min = 1;
   let max = 233;
   let lastSortedIndex = 0;
+  let currentlyCompare = [];
 
   $: {
     resetUnsortedArray(max);
@@ -36,16 +37,19 @@
     for (let i = 1; i < length; i++) {
       let key = unsortedArray[i];
       let j = i - 1;
+
+      currentlyCompare = [key, unsortedArray[j]];
       while (j >= 0 && unsortedArray[j] > key) {
-        await pause(2);
+        await pause(15);
         unsortedArray[j + 1] = unsortedArray[j];
         j = j - 1;
       }
-      await pause(2);
+      await pause(15);
       lastSortedIndex = i;
       unsortedArray[j + 1] = key;
     }
-    lastSortedIndex = unsortedArray.length - 1;
+    lastSortedIndex = unsortedArray.length;
+    currentlyCompare = [];
   };
 
   function run() {
@@ -76,7 +80,10 @@
 </style>
 
 <main>
-  <InsertionSortVisualizer {unsortedArray} {sortedSubArray} />
+  <InsertionSortVisualizer
+    {unsortedArray}
+    {sortedSubArray}
+    {currentlyCompare} />
   <div style="margin-top: {max * 3 + 50}px;" class="actions">
     <div class="buttons">
       <button on:click={resetUnsortedArray(max)}>Randomize Elements</button>
